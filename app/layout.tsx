@@ -1,3 +1,5 @@
+
+import Modal from './components/modals/Modal'
 import Navbar from './components/navbar/Navbar'
 import './globals.css'
 import { DM_Sans } from 'next/font/google'
@@ -18,6 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={dm_sans.className}>
         <Navbar/>
+       
         {children}
       </body>
     </html>
