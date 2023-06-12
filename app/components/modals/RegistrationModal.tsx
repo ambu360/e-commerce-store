@@ -2,11 +2,14 @@
 import useRegisterModal from "@/app/hooks/useRegisterModal";
 import Modal from "./Modal";
 import { useState } from "react";
+import {FcGoogle} from 'react-icons/fc'
+import { AiFillGithub } from "react-icons/ai";
 import { SubmitHandler, FieldValues, useForm } from "react-hook-form";
 import axios from "axios";
 import toast from "react-hot-toast";
 import Heading from "../Heading";
 import Input from "../inputs/Input";
+import Button from "../Button";
 
 const RegistrationModal = () => {
   const registerModal = useRegisterModal();
@@ -66,6 +69,47 @@ const RegistrationModal = () => {
     </div>
   );
 
+  const footercontent = (
+    <div className="flex flex-col mt-3 gap-3">
+      <hr/>
+      <Button
+        label='Sign in using google'
+        outline
+        icon={FcGoogle}
+        onClick={()=>{}}
+      />
+        <Button
+        label='Sign in using Github'
+        icon={AiFillGithub}
+        outline
+        onClick={()=>{}}
+      />
+      <div className="
+        text-neutral-500
+        text-center
+        mt-4
+        font-light
+      ">
+        <div className="
+          flex
+          justify-center
+          flex-row
+          items-center
+          gap-2
+        ">
+          <div>
+            Already have an account?
+          </div>
+          <div 
+          onClick={registerModal.onClose}
+            className=" text-neutral-800 cursor-pointer hover:underline"
+          >
+            Login
+          </div>
+        </div>
+      </div>
+    </div>
+  )
   return (
   <Modal 
     disabled={isLoading}
@@ -75,6 +119,7 @@ const RegistrationModal = () => {
     onClose={registerModal.onClose}
     onSubmit={handleSubmit(onSubmit)}
     actionLabel="Registration" 
+    footer={footercontent}
   />)
 };
 

@@ -1,0 +1,64 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  name           String?
+  email          String?   @unique
+  emailVerified  DateTime?
+  image          String?
+  hashedPassword String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  favoriteId     String[]  @db.ObjectId
+  orderedId      String[]  @db.ObjectId
+
+  accounts Account[]
+}
+
+model Account {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String  @db.ObjectId
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.String
+  access_token      String? @db.String
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Category {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  productIDs String[]  @db.ObjectId
+  products   Product[] @relation(fields: [productIDs], references: [id])
+  image      String?
+}
+
+model Product {
+  id               String     @id @default(auto()) @map("_id") @db.ObjectId
+  name             String
+  price            Float
+  image            String
+  brand            String
+  categoryIDs      String[]   @db.ObjectId
+  categories       Category[] @relation(fields: [categoryIDs], references: [id])
+  currentInventory Int
+  description      String
+}
