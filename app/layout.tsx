@@ -6,6 +6,7 @@ import { DM_Sans } from 'next/font/google'
 import ToasterProvider from './providers/ToasterProvider'
 import RegistrationModal from './components/modals/RegistrationModal'
 import getCurrentUser from './actions/getCurrentUser'
+import getAllCategories from './actions/getCategories'
 import LoginModal from './components/modals/LoginModal'
 import SellModal from './components/modals/SellModal'
 
@@ -22,13 +23,14 @@ export default async function RootLayout({
   children: React.ReactNode
 }) {
   const currentUser =await getCurrentUser();
+  const categories_prisma = await getAllCategories();
   return (
     <html lang="en">
       <body className={dm_sans.className}>
         <ToasterProvider/>
         <LoginModal/>
         <RegistrationModal/>
-        <SellModal/>
+        <SellModal categories_prisma = {categories_prisma}/>
         <Navbar currentUser = {currentUser}/>       
         {children}
       </body>

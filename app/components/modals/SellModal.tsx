@@ -16,9 +16,19 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import getAllCategories from "@/app/actions/getCategories";
 
-const  SellModal =  () => {
+interface SellModalProps {
+  categories_prisma?: {
+    id:string;
+    name:string;
+  }[]
+}
+const  SellModal:React.FC<SellModalProps> =  ({categories_prisma}) => {
 
   
+if(categories_prisma){
+  console.log(categories_prisma)
+}
+
 
   
   enum STEPS {
@@ -133,15 +143,20 @@ const  SellModal =  () => {
                 overflow-y-auto
             "
       >
-        {categories.map((item) => (
-          <CategoryInput
-          key={item.label}
-            label={item.label}
-            selected={category === item.label}
-            icon={item.icon}
-            onClick={(category) => setCustomvalue("category", category)}
-          />
-        ))}
+        {categories.map((item) => {
+          const category_prisma = categories_prisma?.find((category) => item.label === category.name)
+          
+          return (
+            <CategoryInput
+            key={category_prisma?.id}
+              label={item.label}
+              selected={category === category_prisma?.id}
+              id={category_prisma?.id}
+              icon={item.icon}
+              onClick={(category) => setCustomvalue("category", category)}
+            />
+          )
+        })}
       </div>
     </div>
   );

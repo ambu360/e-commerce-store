@@ -12,9 +12,9 @@ export async function POST(request: Request) {
   const body = await request.json();
   const { category, title, description, quantity, imageSrc, price,brand } = body;
 
-  /*const product = await prisma.product.create({
+  const product = await prisma.product.create({
     data: {
-      category,
+      categoryID:category,
       name: title,
       description: description,
       currentInventory: quantity,
@@ -23,7 +23,7 @@ export async function POST(request: Request) {
       price: parseInt(price, 10),
       userId: currentUser.id,
     },
-  });*/
+  });
 
-  //return NextResponse.json(product);
+  return NextResponse.json(product);
 }
