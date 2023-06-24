@@ -23,6 +23,7 @@ model User {
   orderedId      String[]  @db.ObjectId
 
   accounts Account[]
+  products Product[]
 }
 
 model Account {
@@ -44,21 +45,23 @@ model Account {
 }
 
 model Category {
-  id         String    @id @default(auto()) @map("_id") @db.ObjectId
-  name       String
-  productIDs String[]  @db.ObjectId
-  products   Product[] @relation(fields: [productIDs], references: [id])
-  image      String?
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  products Product[]
+  image    String?
 }
 
 model Product {
-  id               String     @id @default(auto()) @map("_id") @db.ObjectId
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
   name             String
   price            Float
   image            String
   brand            String
-  categoryIDs      String[]   @db.ObjectId
-  categories       Category[] @relation(fields: [categoryIDs], references: [id])
+  categoryID       String   @db.ObjectId
+  category         Category @relation(fields: [categoryID], references: [id])
   currentInventory Int
+  userId           String   @db.ObjectId
   description      String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

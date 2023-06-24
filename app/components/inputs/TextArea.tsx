@@ -1,44 +1,40 @@
-'use client';
+'use client'
 
-import { FieldValues, UseFormRegister,FieldErrors } from "react-hook-form";
-import {BiDollar} from 'react-icons/bi'
+import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
 
-interface InputProps {
+interface TextAreaProps {
     id:string;
-    label:string;
-    type?:string;
+    label?:string;
     disabled?:boolean;
-    formatPrice?:boolean;
     required?:boolean;
+    type?:string
     register:UseFormRegister<FieldValues>;
     errors:FieldErrors;
 }
-const Input:React.FC<InputProps> = ({
+
+
+const TextArea:React.FC<TextAreaProps> = ({
     id,
     label,
     type,
     disabled,
-    formatPrice,
     required,
     register,
-    errors,
+    errors
 }) =>{
 
     return (
         <div className="w-full relative">
-            {formatPrice && (
-                <BiDollar size={24} className = 'text-neutral-700 absolute top-5 left-2'/>
-            )}
-            <input
+            <textarea
                 id={id}
                 disabled={disabled}
                 {...register(id,{required})}
                 placeholder=" "
-                type={type}
                 className={`
                     peer
                     w-full
                     p-4
+                    pl-4
                     pt-6
                     font-light
                     bg-white
@@ -48,7 +44,7 @@ const Input:React.FC<InputProps> = ({
                     transition
                     disabled:opacity-70 
                     disabled:cursor-not-allowed
-                    ${formatPrice?'pl-9':'pl-4'}
+                    
                     ${errors[id]?'border-rose-500 focus:border-rose-500':'border-neutral-300 focus:border-black-300'}
                 `}
             />
@@ -61,7 +57,7 @@ const Input:React.FC<InputProps> = ({
                 top-5
                 z-10
                 origin-[0]
-                ${formatPrice?'left-9':'left-4'}
+                left-4
                 peer-placeholder-shown:scale-100
                 peer-placeholder-shown:translate-y-0
                 peer-focus:scale-75
@@ -74,4 +70,4 @@ const Input:React.FC<InputProps> = ({
     )
 }
 
-export default Input;
+export default TextArea;

@@ -3,11 +3,19 @@ import Logo from "./Logo";
 import Container from "../Container";
 import React from "react";
 import UserMenu from "./UserMenu";
+import { User } from "@prisma/client";
+import { SafeUser } from "@/app/types";
+import Categories from "./Categories";
+interface NavbarProps {
+  currentUser?:SafeUser | null
+}
 
-const Navbar = () => {
+const Navbar:React.FC<NavbarProps> = ({
+  currentUser
+}) => {
   return (
-    <div className="fixed w-full bg-white z-10 shadow-sm">
-      <div className="py-4 border-b-[1px]">
+    <div className="fixed w-full bg-white z-10 shadow-md">
+      <div className="py-2 border-b-[1px]">
         <Container>
           <div
             className="
@@ -21,10 +29,11 @@ const Navbar = () => {
           >
             <Logo />
             <Search />
-            <UserMenu />
+            <UserMenu currentUser = {currentUser}/>
           </div>
         </Container>
       </div>
+      <Categories/>
     </div>
   );
 };

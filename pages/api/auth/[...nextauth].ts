@@ -4,6 +4,7 @@ import prisma from '@/app/libs/prismadb'
 import GithubProvider from 'next-auth/providers/github'
 import GoogleProvider from 'next-auth/providers/google'
 import CredentitalsProvider from 'next-auth/providers/credentials'
+import FacebookProvider from 'next-auth/providers/facebook'
 import bcrypt from 'bcrypt'
 
 export const authOptions:AuthOptions = {
@@ -16,6 +17,10 @@ export const authOptions:AuthOptions = {
         GoogleProvider({
             clientId:process.env.GOOGLE_CLIENT_ID as string,
             clientSecret:process.env.GOOGLE_CLIENT_SECRET as string,
+        }),
+        FacebookProvider({
+            clientId:process.env.FACEBOOK_CLIENT_ID as string,
+            clientSecret:process.env.FACEBOKK_CLIENT_SECRET as string,
         }),
         CredentitalsProvider({
             name:'credentials',
@@ -51,7 +56,7 @@ export const authOptions:AuthOptions = {
         })
     ],
     pages:{
-        signIn:'/'
+        signIn:"/"
     },
     debug:process.env.NODE_ENV === 'development',
     session:{
