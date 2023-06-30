@@ -8,6 +8,7 @@ const Container: React.FC<ContainerProps> = ({ children,border }) => {
     return (
         <div className={`
             mx-auto
+            max-h-screen
             max-w-[2520px]
             xl:px-20
             md:px-10

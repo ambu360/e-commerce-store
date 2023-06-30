@@ -18,9 +18,10 @@ const ImageUpload:React.FC<ImageUploadProps> = ({
     onChange
 }) =>{
 
+    const [imageDimension,setImageDimension] = useState({width:0,height:0})
     const handleUpload = useCallback((result:any)=>{
         onChange(result.info.secure_url)
-
+        setImageDimension({width:result.info.width,height:result.info.height})
     },[onChange])
     return (
         <div>
@@ -57,8 +58,9 @@ const ImageUpload:React.FC<ImageUploadProps> = ({
                 {value && <div className="absolute inset-0 w-full h-full">
                         <Image 
                             alt="Upload"
-                            fill
-                            style={{objectFit:'cover'}}
+                            width={imageDimension.width}
+                            height={imageDimension.height}
+                            style={{objectFit:'contain'}}
                             src={value}
                         />
                     </div>}

@@ -61,6 +61,7 @@ const Categories = () =>{
                 
                 flex
                 flex-row
+                pt-4
                 items-center
                 justify-between
                 overflow-x-auto

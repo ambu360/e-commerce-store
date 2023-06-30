@@ -25,10 +25,6 @@ interface SellModalProps {
 const  SellModal:React.FC<SellModalProps> =  ({categories_prisma}) => {
 
   
-if(categories_prisma){
-  console.log(categories_prisma)
-}
-
 
   
   enum STEPS {
@@ -171,7 +167,7 @@ if(categories_prisma){
         />
         <div className=" flex flex-col gap-8 mt-2">
           <Input
-            id="name"
+            id="title"
             label="Name of  the product"
             register={register}
             errors={errors}

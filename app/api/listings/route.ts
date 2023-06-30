@@ -14,14 +14,14 @@ export async function POST(request: Request) {
 
   const product = await prisma.product.create({
     data: {
-      categoryID:category,
+      category: { connect: { id: category } },
       name: title,
       description: description,
       currentInventory: quantity,
       brand:brand,
       image: imageSrc,
       price: parseInt(price, 10),
-      userId: currentUser.id,
+      user: {connect:{id:currentUser.id}},
     },
   });
 

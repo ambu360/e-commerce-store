@@ -57,7 +57,7 @@ const Input:React.FC<InputProps> = ({
                 text-md
                 duration-150
                 transform
-                -translate-y-1
+                -translate-y-3
                 top-5
                 z-10
                 origin-[0]

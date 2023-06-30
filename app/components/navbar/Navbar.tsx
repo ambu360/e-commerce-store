@@ -1,3 +1,4 @@
+'use client'
 import Search from "./Search";
 import Logo from "./Logo";
 import Container from "../Container";

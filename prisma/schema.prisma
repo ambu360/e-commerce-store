@@ -45,10 +45,13 @@ model Account {
 }
 
 model Category {
-  id       String    @id @default(auto()) @map("_id") @db.ObjectId
-  name     String
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+
   products Product[]
   image    String?
+
+  @@map("categories") // Set the collection name explicitly
 }
 
 model Product {
@@ -57,11 +60,13 @@ model Product {
   price            Float
   image            String
   brand            String
+  createdAt        DateTime @default(now())
   categoryID       String   @db.ObjectId
   category         Category @relation(fields: [categoryID], references: [id])
   currentInventory Int
   userId           String   @db.ObjectId
   description      String
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@map("products") // Set the collection name explicitly
 }

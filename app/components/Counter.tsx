@@ -20,23 +20,27 @@ const Counter:React.FC<CounterProps> = ({
     const [customvalue,setCustomvalue] = useState(value)
 
     const onAdd = useCallback(()=>{
-        setCustomvalue(Number(customvalue) + 1)
-        onChange(customvalue)
+        const updatedValue = Number(customvalue) + 1
+        setCustomvalue(updatedValue)
+        onChange(Number(customvalue))
+    
     },[onChange,value])
 
     const onReduce = useCallback(()=>{
         if( customvalue<=1){
             return 
         }
-        setCustomvalue(Number(customvalue)-1)
-        onChange(customvalue)
+        const updatedValue = Number(customvalue) - 1
+        setCustomvalue(updatedValue)
+        onChange(Number(customvalue))
+  
     },[onChange,value])
 
 
     const handleInputChange = useCallback((e:any)=>{
         setCustomvalue( e.target.value )
-        onChange(customvalue)
-    },[])
+        onChange(Number(customvalue))
+    },[customvalue])
     return (
         <div className="flex flex-row items-center justify-between">
             <div className="flex flex-col">

@@ -2,7 +2,7 @@
 import Modal from './components/modals/Modal'
 import Navbar from './components/navbar/Navbar'
 import './globals.css'
-import { DM_Sans } from 'next/font/google'
+import { DM_Sans,Poppins } from 'next/font/google'
 import ToasterProvider from './providers/ToasterProvider'
 import RegistrationModal from './components/modals/RegistrationModal'
 import getCurrentUser from './actions/getCurrentUser'
@@ -11,6 +11,7 @@ import LoginModal from './components/modals/LoginModal'
 import SellModal from './components/modals/SellModal'
 
 const dm_sans = DM_Sans({weight: ['400', '500', '700'], subsets: ['latin']} )
+const poppins = Poppins({weight: ["400" , "500" , "700" , "100" , "200" , "300" , "600" , "800", "900" ],subsets: ['latin']})
 
 export const metadata = {
   title: 'Store',
@@ -26,7 +27,7 @@ export default async function RootLayout({
   const categories_prisma = await getAllCategories();
   return (
     <html lang="en">
-      <body className={dm_sans.className}>
+      <body className={poppins.className}>
         <ToasterProvider/>
         <LoginModal/>
         <RegistrationModal/>
