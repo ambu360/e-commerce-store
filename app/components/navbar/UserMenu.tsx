@@ -8,6 +8,7 @@ import useLoginModal from "@/app/hooks/useLoginModal";
 import { SafeUser } from "@/app/types";
 import { signOut } from "next-auth/react";
 import useSellModal from "@/app/hooks/useSellModal";
+import { useRouter } from "next/navigation";
 
 interface UserMenuProps {
   currentUser?: SafeUser | null;
@@ -16,6 +17,7 @@ interface UserMenuProps {
 const UserMenu:React.FC<UserMenuProps> = ({
   currentUser
 }) => {
+  const router = useRouter();
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal()
   const sellModal = useSellModal()
@@ -65,7 +67,7 @@ const UserMenu:React.FC<UserMenuProps> = ({
                 />
                 <MenuItem
                   label='favourties'
-                  onClick={()=>{}}
+                  onClick={()=>router.push('/favorites')}
                 />
                 <MenuItem
                   label='Sell an Item'

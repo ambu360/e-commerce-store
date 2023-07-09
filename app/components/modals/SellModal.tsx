@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import useSellModal from "@/app/hooks/useSellModal";
 import Modal from "./Modal";
@@ -7,7 +7,12 @@ import { categories } from "../navbar/Categories";
 import CategoryInput from "../inputs/CategoryInput";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import {
+  FieldValues,
+  SubmitHandler,
+  useFieldArray,
+  useForm,
+} from "react-hook-form";
 import Input from "../inputs/Input";
 import TextArea from "../inputs/TextArea";
 import Counter from "../Counter";
@@ -15,25 +20,25 @@ import ImageUpload from "../inputs/Imageupload";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import getAllCategories from "@/app/actions/getCategories";
+import TagsInput from "../inputs/TagsInput";
+import SizesInput from "../inputs/SizesInput";
 
 interface SellModalProps {
   categories_prisma?: {
-    id:string;
-    name:string;
-  }[]
+    id: string;
+    name: string;
+  }[];
 }
-const  SellModal:React.FC<SellModalProps> =  ({categories_prisma}) => {
-
-  
-
-  
+const SellModal: React.FC<SellModalProps> = ({ categories_prisma }) => {
   enum STEPS {
     CATEGORY = 0,
-    INFO = 1,
-    IMAGES = 2,
-    PRICE = 3,
+    INFO_1 = 1,
+    INFO_2 = 2,
+    IMAGES = 3,
+
+    PRICE = 4,
   }
-  
+
   const router = useRouter();
 
   const [step, setStep] = useState(STEPS.CATEGORY);
@@ -44,26 +49,49 @@ const  SellModal:React.FC<SellModalProps> =  ({categories_prisma}) => {
     setValue,
     watch,
     formState: { errors },
+    control,
     reset,
   } = useForm<FieldValues>({
     defaultValues: {
       category: "",
       title: "",
-      brand:'',
+      brand: "",
       description: "",
       quantity: 1,
-      imageSrc: '',
+      imageSrc: "",
       price: "",
+      tags: [""],
+      sizes: [{ name: "", inventory: 0 }],
     },
   });
 
-  const [isLoading,setIsloading] = useState(false)
+  const [isLoading, setIsloading] = useState(false);
+  const [sizeOptions,setSizeOption] = useState([
+    {
+      size: "small",
+      isSelected: false,
+    },
+    {
+      size: "medium",
+      isSelected: false,
+    },
+    {
+      size: "large",
+      isSelected: false,
+    },
+    {
+      size: "xLarge",
+      isSelected: false,
+    },
+  ]);
 
   //watch for current step
   const category = watch("category");
   const quantity = watch("quantity");
   const imageSrc = watch("imageSrc");
-  const price = watch("price");
+  const tags = watch("tags");
+  const sizes = watch("sizes");
+
   const sellModal = useSellModal();
 
   //set the custom value for the field
@@ -86,26 +114,28 @@ const  SellModal:React.FC<SellModalProps> =  ({categories_prisma}) => {
   };
 
   //handle form submit
-  const onSubmit:SubmitHandler<FieldValues> = (data)=>{
-    if(step!== STEPS.PRICE){
-        return onNext()
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    if (step !== STEPS.PRICE) {
+      return onNext();
     }
 
-    setIsloading(true)
-    axios.post('/api/listings',data)
-    .then(()=>{
-        toast.success('Listing created')
-        router.refresh()
-        reset()
-        setStep(STEPS.CATEGORY)
-        sellModal.onClose()
-    })
-    .catch(()=>{
-        toast.error('something went wrong')
-    }).finally(()=>{
-        setIsloading(false)
-    })
-  }
+    setIsloading(true);
+    axios
+      .post("/api/listings", data)
+      .then(() => {
+        toast.success("Listing created");
+        router.refresh();
+        reset();
+        setStep(STEPS.CATEGORY);
+        sellModal.onClose();
+      })
+      .catch(() => {
+        toast.error("something went wrong");
+      })
+      .finally(() => {
+        setIsloading(false);
+      });
+  };
 
   //handle action
   const actionLabel = useMemo(() => {
@@ -140,25 +170,27 @@ const  SellModal:React.FC<SellModalProps> =  ({categories_prisma}) => {
             "
       >
         {categories.map((item) => {
-          const category_prisma = categories_prisma?.find((category) => item.label === category.name)
-          
+          const category_prisma = categories_prisma?.find(
+            (category) => item.label === category.name
+          );
+
           return (
             <CategoryInput
-            key={category_prisma?.id}
+              key={category_prisma?.id}
               label={item.label}
               selected={category === category_prisma?.id}
               id={category_prisma?.id}
               icon={item.icon}
               onClick={(category) => setCustomvalue("category", category)}
             />
-          )
+          );
         })}
       </div>
     </div>
   );
 
   //step for getting ifno-name,description,quanity
-  if (step === STEPS.INFO) {
+  if (step === STEPS.INFO_1) {
     bodyContent = (
       <div>
         <Heading
@@ -181,7 +213,8 @@ const  SellModal:React.FC<SellModalProps> =  ({categories_prisma}) => {
             errors={errors}
             required
           />
-          <hr/>
+          <hr />
+         
           <TextArea
             id="description"
             label="Description of item"
@@ -189,52 +222,80 @@ const  SellModal:React.FC<SellModalProps> =  ({categories_prisma}) => {
             errors={errors}
             required
           />
-          <hr />
-          <Counter
-            label="Quantity"
-            subtitle="How many do you have in your Inventory"
-            value={quantity}
-            onChange={(value) => setCustomvalue("quantity", value)}
-          />
+          
         </div>
       </div>
     );
   }
 
-  if (step === STEPS.IMAGES) {
+  if(step== STEPS.INFO_2){
     bodyContent = (
-        <div className="flex flex-col gap-8">
-            <Heading
-                title='Image upload'
-                subTitle='upload your product images'
-            />
-            <ImageUpload
-                value={imageSrc}
-                onChange={(value)=>setCustomvalue('imageSrc',value)}
-            />
-        </div>
+      <div className=" flex flex-col gap-8">
+        <Heading
+          title="Informarion"
+          subTitle="Tell us more about your product"
+        />
+        <hr/>
+         <TagsInput
+            id="tags"
+            label="enter your tags"
+            setCustomValue={setCustomvalue}
+            required
+            tags={tags}
+          />
+
+          <hr />
+          {/*Refactor counter to sum inventory
+        <hr />
+           <Counter
+            label="Quantity"
+            subtitle="How many do you have in your Inventory"
+            value={quantity}
+            onChange={(value) => setCustomvalue("quantity", value)}
+          /> 
+    <hr />*/}
+          <SizesInput
+            label="Sizes"
+            subTitle="What sizes do you offer and what are there inventory amounts"
+            sizeOptions={sizeOptions}
+            setSizeOption = {setSizeOption}
+            setCustomValue={setCustomvalue}
+            required
+            sizes={sizes}
+          />
+     
+      </div>
     )
   }
 
-  if(step === STEPS.PRICE){
+  if (step === STEPS.IMAGES) {
     bodyContent = (
-        <div className="flex flex-col gap-8">
-            <Heading
-                title='Pricing'
-                subTitle="How much are you going to charge?"
-            />
-            <Input
-                id='price'
-                label='price'
-                formatPrice
-                type="number"
-                disabled={isLoading}
-                register={register}
-                errors={errors}
-                required
-            />
-        </div>
-    )
+      <div className="flex flex-col gap-8">
+        <Heading title="Image upload" subTitle="upload your product images" />
+        <ImageUpload
+          value={imageSrc}
+          onChange={(value) => setCustomvalue("imageSrc", value)}
+        />
+      </div>
+    );
+  }
+
+  if (step === STEPS.PRICE) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading title="Pricing" subTitle="How much are you going to charge?" />
+        <Input
+          id="price"
+          label="price"
+          formatPrice
+          type="number"
+          disabled={isLoading}
+          register={register}
+          errors={errors}
+          required
+        />
+      </div>
+    );
   }
 
   return (

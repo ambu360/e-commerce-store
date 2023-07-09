@@ -4,14 +4,14 @@ import { categories } from "@/app/components/navbar/Categories";
 import ProductHead from "@/app/components/products/ProductHead";
 import ProductInfo from "@/app/components/products/ProductInfo";
 import { SafeProduct, SafeUser } from "@/app/types";
-import { Category } from "@prisma/client";
-import { data } from "autoprefixer";
+import { Category, Size } from "@prisma/client";
 import { useMemo } from "react";
 
 interface ProductClientProps {
   product: SafeProduct & {
     user: SafeUser;
     category: Category;
+    sizes:Size[]
   };
   currentUser?: SafeUser | null;
 }
@@ -31,14 +31,15 @@ const ProductClient: React.FC<ProductClientProps> = ({
       <div
         className="
         h-full
-        pt-28 
-    md:mb-2
+        pt-20
+        md:pt-24
+        md:mb-2
         max-w-screen 
         justify-center
         md:justify-start
         grid 
         items-center 
-        md:grid-cols-2
+        md:grid-cols-3
         gap-4
         whitespace-normal
         overflow-y-none
@@ -48,12 +49,14 @@ const ProductClient: React.FC<ProductClientProps> = ({
           className="
             flex
             justify-center
-            w-full
+            md:col-span-2
+            w-fit
             py-3
             md:px-1
             "
         >
-          <div className="flex flex-col w-full  gap-4 md:gap-4 lg:gap-6 md:pl-3">
+          <div className="flex flex-col md:flex-row w-full  gap-4md:gap-6 lg:gap-8 md:pl-3">
+            <div className="flex flex-col gap-2">
             <ProductHead
               title={product.name}
               imageSrc={product.image}
@@ -61,6 +64,7 @@ const ProductClient: React.FC<ProductClientProps> = ({
               currentUser={currentUser}
               brand={product.brand}
             />
+            </div>
             <div
               className=" 
                 grid
@@ -68,6 +72,8 @@ const ProductClient: React.FC<ProductClientProps> = ({
                 md:grid-cols-4
                 md:gap-10
                 mt-6
+                items-center
+                gap-4
             "
             >
               <ProductInfo
@@ -75,6 +81,8 @@ const ProductClient: React.FC<ProductClientProps> = ({
                 category={category}
                 description={product.description}
                 quantity={product.currentInventory}
+                tags={product.tags}
+                sizes = {product.sizes}
               />
             </div>
           </div>

@@ -10,14 +10,13 @@ interface ListingCardProps {
   currentUser?: SafeUser | null;
 }
 const ListingCard: React.FC<ListingCardProps> = ({ data, currentUser }) => {
-  const router  = useRouter()
+  const router = useRouter();
   return (
-    <div 
-    
-    className="cols-span-1 cursor-pointer group">
-      <div 
-      onClick={()=> router.push(`/products/${data.id}`)}
-      className="flex flex-col gap-2 w-full">
+    <div className="cols-span-1 cursor-pointer group">
+      <div
+        onClick={() => router.push(`/products/${data.id}`)}
+        className="flex flex-col gap-2 w-full"
+      >
         <div
           className="
                     aspect-square
@@ -43,6 +42,17 @@ const ListingCard: React.FC<ListingCardProps> = ({ data, currentUser }) => {
             <HeartButton id={data.id} currentUser={currentUser} />
           </div>
         </div>
+        <div className="flex flex-row justify-between px-1 items-center">
+          <div className="font-semibold">
+            {data.name}
+          </div>
+          <div className="font-light text-neutral-500">
+        {data.brand}
+          </div>
+          <div>
+            ${data.price}
+          </div>
+          </div>
       </div>
     </div>
   );

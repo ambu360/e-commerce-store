@@ -33,7 +33,7 @@ const ProductHead: React.FC<ProductHeadProps> = ({
             lg:h-[50vh]
             lg:w-[45vh]
             overflow-hidden
-            md:ml-5
+            
             relative
         "
       >

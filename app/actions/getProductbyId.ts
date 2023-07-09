@@ -13,7 +13,8 @@ export default async function getProductById({ params }: { params: Iparams }) {
       },
       include: {
         user: true,
-        category:true
+        category:true,
+        sizes:true,
       },
     });
 
@@ -30,6 +31,7 @@ export default async function getProductById({ params }: { params: Iparams }) {
             updatedAt:product.user.updatedAt.toString(),
             emailVerified:product.user.emailVerified?.toString() || null
         },
+        
         
     }
   } catch (error: any) {

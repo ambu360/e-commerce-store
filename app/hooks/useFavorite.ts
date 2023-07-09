@@ -4,6 +4,7 @@ import useLoginModal from "./useLoginModal";
 import { useCallback, useMemo } from "react";
 import { toast } from "react-hot-toast";
 import axios from "axios";
+import getCurrentUser from "../actions/getCurrentUser";
 
 interface IUseFavorite {
   productId: string;
