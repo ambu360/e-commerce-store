@@ -1,4 +1,5 @@
 "use client";
+import Button from "@/app/components/Button";
 import Container from "@/app/components/Container";
 import { categories } from "@/app/components/navbar/Categories";
 import ProductHead from "@/app/components/products/ProductHead";
@@ -55,7 +56,7 @@ const ProductClient: React.FC<ProductClientProps> = ({
             md:px-1
             "
         >
-          <div className="flex flex-col md:flex-row w-full  gap-4md:gap-6 lg:gap-8 md:pl-3">
+          <div className="flex flex-col md:flex-row w-full  gap-4 md:gap-6 lg:gap-8 md:pl-3">
             <div className="flex flex-col gap-2">
             <ProductHead
               title={product.name}
@@ -67,13 +68,13 @@ const ProductClient: React.FC<ProductClientProps> = ({
             </div>
             <div
               className=" 
-                grid
-                grid-cols-1
-                md:grid-cols-4
-                md:gap-10
+               flex
+                flex-col
                 mt-6
+                justify-center
                 items-center
                 gap-4
+                
             "
             >
               <ProductInfo
@@ -84,6 +85,13 @@ const ProductClient: React.FC<ProductClientProps> = ({
                 tags={product.tags}
                 sizes = {product.sizes}
               />
+            
+            <div className="w-full mt-3">
+              <Button
+                onClick={()=>{}}
+                label="Add to cart"
+              />
+            </div>
             </div>
           </div>
         </div>

@@ -48,7 +48,7 @@ const SizezInput: React.FC<SizeInputProps> = ({
     sizeInfo.forEach((item) => (
       quantity += item.inventory
     ))
-    setCustomValue('quantiy',quantity)
+    setCustomValue('quantity',quantity)
   },[sizeInfo])
   const onSelected = useCallback(
     (value: { size: string; isSelected: boolean }) => {

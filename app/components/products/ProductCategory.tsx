@@ -16,8 +16,8 @@ const ProductCategory:React.FC<ProductCategoryProps> = ({
 
     return (
         <div className="flex flex-col gap-6">
-            <div className="flex flex-row items-center gap-4  hover:text-amber-500">
-                <Icon size={40} className="test-neutral-600"/>
+            <div className="flex flex-row items-center gap-4  hover:text-amber-600/90 hover:cursor-pointer">
+                <Icon size={40} className=""/>
                 <div className="flex flex-col">
                     <div className="text-lg font-semibold">
                         {label}

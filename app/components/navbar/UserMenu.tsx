@@ -9,6 +9,7 @@ import { SafeUser } from "@/app/types";
 import { signOut } from "next-auth/react";
 import useSellModal from "@/app/hooks/useSellModal";
 import { useRouter } from "next/navigation";
+import { RiShoppingCart2Fill } from "react-icons/ri";
 
 interface UserMenuProps {
   currentUser?: SafeUser | null;
@@ -40,14 +41,17 @@ const UserMenu:React.FC<UserMenuProps> = ({
   },[innerRef])
   return (
     <div className="relative">
-      <div className="flex flex-row items-center gap-3 rounded-full border-b-[1px] py-3 px-4 shadow-sm hover:shadow-md">
+      <div className="flex flex-row items-center gap-3 justify-between rounded-full border-b-[1px] py-3 px-4 shadow-sm hover:shadow-md">
+      <span className="hidden md:block text-sm font-semibold py-3 px-3 rounded-full hover:bg-amber-200 transition cursor-pointer ">
+                <RiShoppingCart2Fill size={18} className="text-neutral-600" />
+              </span>
         <div ref={outerRef}
           onClick={toggleOpen}
-          className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-amber-200 transition cursor-pointer"
+          className="hidden md:block text-sm font-semibold py-3 px-3 rounded-full hover:bg-amber-200 transition cursor-pointer"
         >
           <AiOutlineMenu />
         </div>
-        <div className="hidden md:block">
+        <div className="hidden md:block  px-3 hover:cursor-pointer">
           
           <Avatar src={currentUser?.image}/>
         </div>

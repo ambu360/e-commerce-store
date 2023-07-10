@@ -22,7 +22,7 @@ const ProductHead: React.FC<ProductHeadProps> = ({
   return (
     <>
       <Heading title={title.toUpperCase()} subTitle={brand} />
-      <hr className=" border-amber-500/70"/>
+      <hr className=" border-amber-400/70 border-[2px] rounded-xl"/>
       <div
         className="
     
@@ -33,7 +33,7 @@ const ProductHead: React.FC<ProductHeadProps> = ({
             lg:h-[50vh]
             lg:w-[45vh]
             overflow-hidden
-            
+            mt-2
             relative
         "
       >

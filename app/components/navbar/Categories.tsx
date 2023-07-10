@@ -56,7 +56,7 @@ const Categories = () =>{
     const isMainpage = pathName ==='/';
     if(!isMainpage) return null;
     return (
-        <Container border='border-t-2 border-t-amber-400'>
+        <Container border='border-t-2 bg-white border-t-amber-400'>
             <div className="
                 
                 flex

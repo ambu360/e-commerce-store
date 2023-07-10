@@ -4,6 +4,7 @@ import Logo from "./Logo";
 import Container from "../Container";
 import React from "react";
 import UserMenu from "./UserMenu";
+import { RiShoppingCart2Fill } from "react-icons/ri";
 import { User } from "@prisma/client";
 import { SafeUser } from "@/app/types";
 import Categories from "./Categories";
@@ -28,7 +29,10 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
           >
             <Logo />
             <Search />
-            <UserMenu currentUser={currentUser} />
+            
+              
+              <UserMenu currentUser={currentUser} />
+            
           </div>
         </Container>
       </div>
