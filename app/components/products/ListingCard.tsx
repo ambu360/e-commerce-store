@@ -43,16 +43,10 @@ const ListingCard: React.FC<ListingCardProps> = ({ data, currentUser }) => {
           </div>
         </div>
         <div className="flex flex-row justify-between px-1 items-center">
-          <div className="font-semibold">
-            {data.name}
-          </div>
-          <div className="font-light text-neutral-500">
-        {data.brand}
-          </div>
-          <div>
-            ${data.price}
-          </div>
-          </div>
+          <div className="font-medium text-md">{data.name}</div>
+
+          <div className="font-light">${data.price}</div>
+        </div>
       </div>
     </div>
   );

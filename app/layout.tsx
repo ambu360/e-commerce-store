@@ -9,6 +9,8 @@ import getCurrentUser from './actions/getCurrentUser'
 import getAllCategories from './actions/getCategories'
 import LoginModal from './components/modals/LoginModal'
 import SellModal from './components/modals/SellModal'
+import CartModal from './components/modals/CartModal'
+
 
 const dm_sans = DM_Sans({weight: ['400', '500', '700'], subsets: ['latin']} )
 const poppins = Poppins({weight: ["400" , "500" , "700" , "100" , "200" , "300" , "600" , "800", "900" ],subsets: ['latin']})
@@ -32,7 +34,9 @@ export default async function RootLayout({
         <LoginModal/>
         <RegistrationModal/>
         <SellModal categories_prisma = {categories_prisma}/>
-        <Navbar currentUser = {currentUser}/>       
+        <CartModal currentUser = {currentUser}/>
+        <Navbar currentUser = {currentUser}/>   
+
         {children}
       </body>
     </html>

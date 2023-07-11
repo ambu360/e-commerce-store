@@ -51,6 +51,7 @@ const ProductInfo: React.FC<ProductInfoProps> = ({
           {sizes &&
             sizes.map((item) => (
               <div
+              key={item.id}
                 className="
                   p-1 
                   font-light 

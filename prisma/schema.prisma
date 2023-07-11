@@ -21,6 +21,7 @@ model User {
   updatedAt      DateTime  @updatedAt
   favoriteId     String[]  @db.ObjectId
   orderedId      String[]  @db.ObjectId
+  cart           Cart?
 
   accounts Account[]
   products Product[]
@@ -54,6 +55,15 @@ model Category {
   @@map("categories") // Set the collection name explicitly
 }
 
+model Cart {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId     String    @unique @db.ObjectId
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  productIds String[]  @db.ObjectId
+  //product   Product[] @relation(fields: [productId], references: [id])
+  Products   Product[] @relation(fields: [productIds],references: [id])
+}
+
 model Product {
   id               String   @id @default(auto()) @map("_id") @db.ObjectId
   name             String
@@ -69,6 +79,8 @@ model Product {
   userId           String   @db.ObjectId
   description      String
   user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  cartIds          String[]   @db.ObjectId
+  carts            Cart[] @relation(fields: [cartIds], references: [id])
 
   @@map("products") // Set the collection name explicitly
 }

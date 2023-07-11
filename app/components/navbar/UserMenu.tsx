@@ -10,6 +10,7 @@ import { signOut } from "next-auth/react";
 import useSellModal from "@/app/hooks/useSellModal";
 import { useRouter } from "next/navigation";
 import { RiShoppingCart2Fill } from "react-icons/ri";
+import useCartHook from "@/app/hooks/useCartHook";
 
 interface UserMenuProps {
   currentUser?: SafeUser | null;
@@ -22,7 +23,7 @@ const UserMenu:React.FC<UserMenuProps> = ({
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal()
   const sellModal = useSellModal()
-
+ const cartDiv = useCartHook()
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const innerRef = useRef<HTMLDivElement>(null);
   const outerRef = useRef<HTMLDivElement>(null);
@@ -42,7 +43,9 @@ const UserMenu:React.FC<UserMenuProps> = ({
   return (
     <div className="relative">
       <div className="flex flex-row items-center gap-3 justify-between rounded-full border-b-[1px] py-3 px-4 shadow-sm hover:shadow-md">
-      <span className="hidden md:block text-sm font-semibold py-3 px-3 rounded-full hover:bg-amber-200 transition cursor-pointer ">
+      <span className="hidden md:block text-sm font-semibold py-3 px-3 rounded-full hover:bg-amber-200 transition cursor-pointer "
+      onClick={()=>cartDiv.onOpen()}
+      >
                 <RiShoppingCart2Fill size={18} className="text-neutral-600" />
               </span>
         <div ref={outerRef}

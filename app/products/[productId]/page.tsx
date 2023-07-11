@@ -3,7 +3,9 @@ import getProductById from "@/app/actions/getProductbyId";
 import ClientOnly from "@/app/components/ClientOnly";
 import EmptyState from "@/app/components/EmptyState";
 import ProductClient from "./ProductClient";
-
+import { useCallback } from "react";
+import axios from 'axios'
+import toast from "react-hot-toast";
 interface IParams {
   productId?: string;
 }
@@ -20,6 +22,7 @@ const ProductPage = async ({ params }: { params: IParams }) => {
     );
   }
 
+  
   return (
     <ClientOnly>
       <ProductClient product={product} currentUser={currentUser} />

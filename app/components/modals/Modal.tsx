@@ -131,7 +131,8 @@ const Modal: React.FC<ModalProps> = ({
                             p-6
                             rounded-t
                             justify-center
-                            border-b-[1px]
+                            border-b-[2px]
+                            border-amber-600/70
                         "
               >
                 <button
