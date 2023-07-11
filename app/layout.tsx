@@ -10,6 +10,7 @@ import getAllCategories from './actions/getCategories'
 import LoginModal from './components/modals/LoginModal'
 import SellModal from './components/modals/SellModal'
 import CartModal from './components/modals/CartModal'
+import getCart from './actions/getCart'
 
 
 const dm_sans = DM_Sans({weight: ['400', '500', '700'], subsets: ['latin']} )
@@ -27,6 +28,7 @@ export default async function RootLayout({
 }) {
   const currentUser =await getCurrentUser();
   const categories_prisma = await getAllCategories();
+  const cart = await getCart()
   return (
     <html lang="en">
       <body className={poppins.className}>
@@ -34,7 +36,7 @@ export default async function RootLayout({
         <LoginModal/>
         <RegistrationModal/>
         <SellModal categories_prisma = {categories_prisma}/>
-        <CartModal currentUser = {currentUser}/>
+        <CartModal currentUser = {currentUser} cart = {cart}/>
         <Navbar currentUser = {currentUser}/>   
 
         {children}
