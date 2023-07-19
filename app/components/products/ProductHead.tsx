@@ -41,7 +41,7 @@ const ProductHead: React.FC<ProductHeadProps> = ({
           alt="product image"
           src={imageSrc}
           fill
-          className=" object-fit rounded-xl  h-fit  "
+          className=" object-fit rounded-xl  h-fit  transition hover:scale-105 hover cursor-pointer"
           sizes=" (max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
         <div className="absolute top-5 right-5">

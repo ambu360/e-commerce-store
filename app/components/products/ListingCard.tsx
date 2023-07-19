@@ -23,6 +23,9 @@ const ListingCard: React.FC<ListingCardProps> = ({ data, currentUser }) => {
                     w-full
                     relative
                     overflow-hidden
+                    shadow-md
+                    hover:shadow-sm
+                    hover:shadow-amber-200
                     rounded-xl
                 "
         >

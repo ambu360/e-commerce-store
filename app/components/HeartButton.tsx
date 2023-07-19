@@ -20,6 +20,7 @@ const HeartButton: React.FC<HeartButtonProps> = ({ id, currentUser }) => {
       className="
             relative
             hover:opacity-80
+            group
             transition
             cursor-pointer
         "
@@ -31,6 +32,7 @@ const HeartButton: React.FC<HeartButtonProps> = ({ id, currentUser }) => {
                     absolute
                     -top-[2px]
                     -right-[2px]
+                    group-hover:scale-110
                 "
       />
       <AiFillHeart

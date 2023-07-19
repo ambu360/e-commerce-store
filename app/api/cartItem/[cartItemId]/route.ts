@@ -20,7 +20,6 @@ export async function POST(request: Request, { params }: { params: IParams }) {
     if (!q || q <= 0) {
       NextResponse.error();
     }
-
     const cartItem = await Prisma?.cartItem.update({
       where: {
         id: cartItemId,

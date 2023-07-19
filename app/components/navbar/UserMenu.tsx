@@ -16,14 +16,12 @@ interface UserMenuProps {
   currentUser?: SafeUser | null;
 }
 
-const UserMenu:React.FC<UserMenuProps> = ({
-  currentUser
-}) => {
+const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
   const router = useRouter();
   const registerModal = useRegisterModal();
-  const loginModal = useLoginModal()
-  const sellModal = useSellModal()
- const cartDiv = useCartHook()
+  const loginModal = useLoginModal();
+  const sellModal = useSellModal();
+  const cartDiv = useCartHook();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const innerRef = useRef<HTMLDivElement>(null);
   const outerRef = useRef<HTMLDivElement>(null);
@@ -32,62 +30,65 @@ const UserMenu:React.FC<UserMenuProps> = ({
     setIsOpen((value) => !value);
   }, []);
 
-  useEffect(()=>{
-    const handleClickOutsideRef=(event: MouseEvent) =>{
-        if (innerRef.current && !innerRef.current.contains(event.target as Node) && outerRef.current &&!outerRef.current.contains(event.target as Node)) {
-            setIsOpen(false);
-          }
-    }
+  useEffect(() => {
+    const handleClickOutsideRef = (event: MouseEvent) => {
+      if (
+        innerRef.current &&
+        !innerRef.current.contains(event.target as Node) &&
+        outerRef.current &&
+        !outerRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
     document.addEventListener("mousedown", handleClickOutsideRef);
-  },[innerRef])
+  }, [innerRef]);
   return (
     <div className="relative">
-      <div className="flex flex-row items-center gap-3 justify-between rounded-full border-b-[1px] py-3 px-4 shadow-sm hover:shadow-md">
-      <span className="hidden md:block text-sm font-semibold py-3 px-3 rounded-full hover:bg-amber-200 transition cursor-pointer "
-      onClick={()=>cartDiv.onOpen()}
-      >
-                <RiShoppingCart2Fill size={18} className="text-neutral-600" />
-              </span>
-        <div ref={outerRef}
+      <div className="flex flex-row items-center gap-3 bg-[#fcf9f3] justify-between rounded-full  py-3 px-4  shadow-sm hover:shadow-md">
+        <span
+          className="hidden md:block text-sm font-semibold py-3 px-3 rounded-full hover:bg-amber-200 transition cursor-pointer "
+          onClick={() => cartDiv.onOpen()}
+        >
+          <RiShoppingCart2Fill size={18} className="text-neutral-600" />
+        </span>
+        <div
+          ref={outerRef}
           onClick={toggleOpen}
           className="hidden md:block text-sm font-semibold py-3 px-3 rounded-full hover:bg-amber-200 transition cursor-pointer"
         >
           <AiOutlineMenu />
         </div>
         <div className="hidden md:block  px-3 hover:cursor-pointer">
-          
-          <Avatar src={currentUser?.image}/>
+          <Avatar src={currentUser?.image} />
         </div>
       </div>
       {isOpen && (
-        <div ref={innerRef} className="absolute mt-2 rounded-xl shadow-md w-[60vw] md:w-5/6 bg-white overflow-hidden right-0 top-12 text-sm">
+        <div
+          ref={innerRef}
+          className="absolute mt-2 rounded-xl shadow-md w-[60vw] md:w-5/6 bg-white overflow-hidden right-0 top-12 text-sm"
+        >
           <div className="flex flex-col cursor-pointer">
-            {currentUser?(
+            {currentUser ? (
               <>
-               <MenuItem
+                <MenuItem
                   label={`${currentUser?.name}'s profile`}
-                  onClick={()=>{}}
+                  onClick={() => {}}
                 />
-                <MenuItem 
-                  label='Orders'
-                  onClick={()=>{}}
-                />
+                <MenuItem label="Orders" onClick={() => {}} />
                 <MenuItem
-                  label='favourties'
-                  onClick={()=>router.push('/favorites')}
+                  label="favourties"
+                  onClick={() => router.push("/favorites")}
                 />
+                <MenuItem label="Sell an Item" onClick={sellModal.onOpen} />
+                <hr className="border-amber-400" />
                 <MenuItem
-                  label='Sell an Item'
-                  onClick={sellModal.onOpen}
-                />
-                <hr/>
-                <MenuItem 
-                  label='signOut'
-                  onClick={()=>signOut()}
+                  label="signOut"
+                  onClick={() => signOut()}
                   isSignOut={true}
                 />
               </>
-            ):(
+            ) : (
               <>
                 <MenuItem onClick={loginModal.onOpen} label="login" />
                 <MenuItem onClick={registerModal.onOpen} label="sign up" />

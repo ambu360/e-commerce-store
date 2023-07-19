@@ -17,8 +17,9 @@ interface ProductInfoProps {
   user: SafeUser;
   quantity: number;
   description: string;
-  tags: string[];
+  
   sizes: Size[];
+  price:number;
 }
 
 const ProductInfo: React.FC<ProductInfoProps> = ({
@@ -26,7 +27,7 @@ const ProductInfo: React.FC<ProductInfoProps> = ({
   user,
   quantity,
   description,
-  tags,
+  price,
   sizes,
 }) => {
   return (
@@ -76,31 +77,9 @@ const ProductInfo: React.FC<ProductInfoProps> = ({
         <div className="text-md">
           <span className="font-semibold">{quantity}</span> in Inventory!
         </div>
-        {/* {tags.length > 0 && (
-          <div className="grid grid-cols-4 md:grid-cols-4 gap-4 items-center  ">
-            {tags.map((tag) => (
-              <div
-                className="flex 
-              justify-center 
-              items-center 
-              bg-amber-200 
-              px-4
-              py-1 
-              rounded-lg 
-              text-xs
-              font-semibold 
-              hover:bg-amber-500 
-              hover:text-neutral-50 
-              hover:cursor-pointer"
-              >
-                {tag}
-              </div>
-            ))}
-          </div>
-        )} */}
       </div>
       <hr className=" border-amber-400/70 border-[2px] rounded-xl" />
-      <div className="flex felx-row font-light text-neutral-500">
+      <div className="flex felx-row font-light text-neutral-500 justify-between items-center">
         {category && (
           <ProductCategory
             icon={category.icon}
@@ -108,6 +87,9 @@ const ProductInfo: React.FC<ProductInfoProps> = ({
             description={category.description}
           />
         )}
+        <div className="text-2xl text-neutral-900 pr-3">
+          ${price}
+        </div>
       </div>
       <hr className=" border-amber-400/70 border-[2px] rounded-xl" />
     </div>

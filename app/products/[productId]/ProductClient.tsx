@@ -15,34 +15,33 @@ interface ProductClientProps {
   product: SafeProduct & {
     user: SafeUser;
     category: Category;
-    sizes:Size[]
+    sizes: Size[];
   };
   currentUser?: SafeUser | null;
-
 }
 
 const ProductClient: React.FC<ProductClientProps> = ({
   product,
   currentUser,
-
 }) => {
-  const router = useRouter()
+  const router = useRouter();
   const category = useMemo(() => {
     return categories.find(
       (category) => category.label === product.category.name
     );
   }, [categories, product]);
 
-  const updateCart = (productId:string)=>{
-    axios.post(`/api/cart/${productId}`)
-    .then(()=>{
-      toast.success('added to cart')
-      router.refresh()
-    }).catch((error:any)=>{
-      toast.error("something went wrong");
-    })
-
-  }
+  const updateCart = (productId: string) => {
+    axios
+      .post(`/api/cart/${productId}`)
+      .then(() => {
+        toast.success("added to cart");
+        router.refresh();
+      })
+      .catch((error: any) => {
+        toast.error("something went wrong");
+      });
+  };
 
   return (
     <Container>
@@ -75,13 +74,13 @@ const ProductClient: React.FC<ProductClientProps> = ({
         >
           <div className="flex flex-col md:flex-row w-full  gap-4 md:gap-6 lg:gap-8 md:pl-3">
             <div className="flex flex-col gap-2">
-            <ProductHead
-              title={product.name}
-              imageSrc={product.image}
-              id={product.id}
-              currentUser={currentUser}
-              brand={product.brand}
-            />
+              <ProductHead
+                title={product.name}
+                imageSrc={product.image}
+                id={product.id}
+                currentUser={currentUser}
+                brand={product.brand}
+              />
             </div>
             <div
               className=" 
@@ -99,16 +98,17 @@ const ProductClient: React.FC<ProductClientProps> = ({
                 category={category}
                 description={product.description}
                 quantity={product.currentInventory}
-                tags={product.tags}
-                sizes = {product.sizes}
+                
+                sizes={product.sizes}
+                price={product.price}
               />
-            
-            <div className="w-full mt-3">
-              <Button
-                onClick={()=>updateCart(product.id)}
-                label="Add to cart"
-              />
-            </div>
+
+              <div className="w-full mt-3">
+                <Button
+                  onClick={() => updateCart(product.id)}
+                  label="Add to cart"
+                />
+              </div>
             </div>
           </div>
         </div>

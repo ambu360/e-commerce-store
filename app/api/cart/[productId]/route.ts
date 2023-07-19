@@ -12,7 +12,7 @@ export async function POST(request: Request, { params }: { params: IParams }) {
     const cart = await getCart();
     const currentUser = await getCurrentUser();
     const { productId } = params;
-    
+
     //check if logged in
     if (!currentUser) {
       return null;

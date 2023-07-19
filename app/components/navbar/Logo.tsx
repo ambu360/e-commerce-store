@@ -8,7 +8,7 @@ const Logo = () =>{
         <Image
         onClick = {()=> router.push('/')}
             alt='logo'
-            className='hidden md:block cursor-pointer'
+            className='hidden md:block cursor-pointer rounded-full shadow-sm hover:scale-105 hover:shadow-md'
             height='50'
             width='50'
             src='/images/storefront1.png'
