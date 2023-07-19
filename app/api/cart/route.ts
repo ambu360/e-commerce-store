@@ -1,43 +1,43 @@
-import getCurrentUser from "@/app/actions/getCurrentUser";
-import { NextResponse } from "next/server";
-import prisma from "@/app/libs/prismadb";
+// import getCurrentUser from "@/app/actions/getCurrentUser";
+// import { NextResponse } from "next/server";
+// import prisma from "@/app/libs/prismadb";
 
-export async function POST(request: Request) {
-  const currentUser = await getCurrentUser();
+// export async function POST(request: Request) {
+//   const currentUser = await getCurrentUser();
 
-  if (!currentUser) {
-    return NextResponse.error();
-  }
+//   if (!currentUser) {
+//     return NextResponse.error();
+//   }
 
-  const body = await request.json();
+//   const body = await request.json();
 
-  const { productId } = body;
+//   const { productId } = body;
 
-  const cart = await prisma.cart.upsert({
-    where: {
-      userId: currentUser.id,
-    },
-    update: {},
-    create: {
-      userId: currentUser.id,
-    },
+//   const cart = await prisma.cart.upsert({
+//     where: {
+//       userId: currentUser.id,
+//     },
+//     update: {},
+//     create: {
+//       userId: currentUser.id,
+//     },
     
-  });
+//   });
 
-  // Add the productId to the user's cart
-  const updatedCart = await prisma.cart.update({
-    where: {
-      id: cart.id,
-    },
-    data: {
-      productIds: {
-        push: productId,
-      },
-    },
-    include: {
-      user: true,
-    },
-  });
+//   // Add the productId to the user's cart
+//   const updatedCart = await prisma.cart.update({
+//     where: {
+//       id: cart.id,
+//     },
+//     data: {
+//       productIds: {
+//         push: productId,
+//       },
+//     },
+//     include: {
+//       user: true,
+//     },
+//   });
 
-  return NextResponse.json(cart);
-}
+//   return NextResponse.json(cart);
+// }

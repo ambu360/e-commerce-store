@@ -34,7 +34,8 @@ const ProductInfo: React.FC<ProductInfoProps> = ({
       className=" 
     md:col-span-4 
     flex flex-col 
-    gap-6 
+   
+    gap-5
     w-
     px-1
     py-1

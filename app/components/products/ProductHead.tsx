@@ -22,7 +22,7 @@ const ProductHead: React.FC<ProductHeadProps> = ({
   return (
     <>
       <Heading title={title.toUpperCase()} subTitle={brand} />
-      <hr className=" border-amber-400/70 border-[2px] rounded-xl"/>
+      <hr className=" border-amber-400/70 border-[2px] rounded-xl" />
       <div
         className="
     
@@ -42,6 +42,7 @@ const ProductHead: React.FC<ProductHeadProps> = ({
           src={imageSrc}
           fill
           className=" object-fit rounded-xl  h-fit  "
+          sizes=" (max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
         <div className="absolute top-5 right-5">
           <HeartButton id={id} currentUser={currentUser} />

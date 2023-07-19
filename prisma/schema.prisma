@@ -22,9 +22,8 @@ model User {
   favoriteId     String[]  @db.ObjectId
   orderedId      String[]  @db.ObjectId
   cart           Cart?
-
-  accounts Account[]
-  products Product[]
+  accounts       Account[]
+  products       Product[]
 }
 
 model Account {
@@ -55,13 +54,21 @@ model Category {
   @@map("categories") // Set the collection name explicitly
 }
 
+model CartItem {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  productId String  @db.ObjectId
+  product   Product @relation(fields: [productId], references: [id])
+  cartId    String  @db.ObjectId
+  cart      Cart?    @relation(fields: [cartId], references: [id])
+  size      String
+  Quantity  Int
+}
+
 model Cart {
-  id         String    @id @default(auto()) @map("_id") @db.ObjectId
-  userId     String    @unique @db.ObjectId
-  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  productIds String[]  @db.ObjectId
-  //product   Product[] @relation(fields: [productId], references: [id])
-  Products   Product[] @relation(fields: [productIds],references: [id])
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String     @unique @db.ObjectId
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  cartItems CartItem[]
 }
 
 model Product {
@@ -79,8 +86,8 @@ model Product {
   userId           String   @db.ObjectId
   description      String
   user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  cartIds          String[]   @db.ObjectId
-  carts            Cart[] @relation(fields: [cartIds], references: [id])
+
+  cartItem CartItem[]
 
   @@map("products") // Set the collection name explicitly
 }

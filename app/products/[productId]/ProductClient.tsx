@@ -7,6 +7,7 @@ import ProductInfo from "@/app/components/products/ProductInfo";
 import { SafeProduct, SafeUser } from "@/app/types";
 import { Category, Size } from "@prisma/client";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useMemo } from "react";
 import toast from "react-hot-toast";
 
@@ -25,6 +26,7 @@ const ProductClient: React.FC<ProductClientProps> = ({
   currentUser,
 
 }) => {
+  const router = useRouter()
   const category = useMemo(() => {
     return categories.find(
       (category) => category.label === product.category.name
@@ -32,9 +34,10 @@ const ProductClient: React.FC<ProductClientProps> = ({
   }, [categories, product]);
 
   const updateCart = (productId:string)=>{
-    axios.post('/api/cart/',{productId:productId})
+    axios.post(`/api/cart/${productId}`)
     .then(()=>{
       toast.success('added to cart')
+      router.refresh()
     }).catch((error:any)=>{
       toast.error("something went wrong");
     })

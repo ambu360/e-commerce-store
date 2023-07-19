@@ -9,25 +9,63 @@ export default async function getCart() {
       return null;
     }
 
+    interface CartItem {
+      id: string;
+      productId: string;
+      cartId: string;
+      size: string;
+      Quantity: number;
+      product: {
+        createdAt: string;
+        id: string;
+        name: string;
+        image: string;
+        price: number;
+        brand: string;
+        tags: string[];
+        categoryID: string;
+        currentInventory: number;
+        description: string;
+        userId: string;
+      };
+    }
+
+    interface Cart {
+      id: string;
+      userId: string;
+      cartItems: CartItem[];
+    }
+
+    // Get cart from the database
     const cart = await prisma.cart.findUnique({
       where: {
         userId: currentUser.id,
       },
       include: {
-        Products: true,
+        cartItems: {
+          include: {
+            product: true,
+          },
+        },
       },
     });
-    if(!cart){
-        return null
+
+    if (!cart) {
+      return null;
     }
-   
-    const safeCart = {
+
+    // Format product.createdAt, Date => String
+    const safeCart: Cart = {
       ...cart,
-      Products: cart?.Products.map((product) => ({
-        ...product,
-        createdAt: product.createdAt.toISOString(),
+      cartItems: cart.cartItems.map((item) => ({
+        ...item,
+        product: {
+          ...item.product,
+          createdAt: item.product.createdAt.toISOString(),
+        },
       })),
     };
+
     return safeCart;
   } catch (error: any) {
     throw new Error(error);
