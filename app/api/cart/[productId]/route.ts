@@ -12,7 +12,8 @@ export async function POST(request: Request, { params }: { params: IParams }) {
     const cart = await getCart();
     const currentUser = await getCurrentUser();
     const { productId } = params;
-
+    const body = await request.json()
+    const {selectedSize} = body;
     //check if logged in
     if (!currentUser) {
       return null;
@@ -35,7 +36,7 @@ export async function POST(request: Request, { params }: { params: IParams }) {
         data: {
           product: { connect: { id: productId } },
           cart: { connect: { id: cart.id } },
-          size: "small",
+          size: selectedSize,
           Quantity: 1,
         },
       });
@@ -44,10 +45,10 @@ export async function POST(request: Request, { params }: { params: IParams }) {
     }
     const cartItems = cart.cartItems;
     const productInCart = cartItems.find(
-      (item) => item.product.id === productId
+      (item) => (item.product.id === productId)&&(item.size===selectedSize)
     );
 
-    if (productInCart) {
+    if (productInCart && productInCart.size === selectedSize) {
       const updatedCartItem = await prisma.cartItem.update({
         where: {
           id: productInCart.id,
@@ -63,7 +64,7 @@ export async function POST(request: Request, { params }: { params: IParams }) {
         data: {
           product: { connect: { id: productId } },
           cart: { connect: { id: cart.id } },
-          size: "small",
+          size: selectedSize,
           Quantity: 1,
         },
       });
