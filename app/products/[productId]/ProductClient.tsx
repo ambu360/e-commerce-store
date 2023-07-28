@@ -1,4 +1,4 @@
-"use client";
+  "use client";
 import Button from "@/app/components/Button";
 import Container from "@/app/components/Container";
 import { categories } from "@/app/components/navbar/Categories";
@@ -47,18 +47,22 @@ const ProductClient: React.FC<ProductClientProps> = ({
       if (!selectedSize || typeof selectedSize !== "string") {
         toast.error("please select a size");
       } else {
-        axios
-          .post(`/api/cart/${productId}`, { selectedSize })
-          .then(() => {
-            toast.success("added to cart");
-            router.refresh();
-          })
-          .catch((error: any) => {
-            toast.error("something went wrong");
-          })
-          .finally(() => {
-            setSelectedSize("");
-          });
+        try {
+          axios
+            .post(`/api/cart/${productId}`, { selectedSize })
+            .then(() => {
+              toast.success("added to cart");
+              router.refresh();
+            })
+            .catch((error: any) => {
+              toast.error("something went wrong");
+            })
+            .finally(() => {
+              setSelectedSize("");
+            });
+        } catch (error: any) {
+          toast.error(error.message);
+        }
       }
     },
     [selectedSize]
@@ -69,8 +73,7 @@ const ProductClient: React.FC<ProductClientProps> = ({
       <div
         className="
         h-full
-        pt-20
-        md:pt-24
+    
         md:mb-2
         max-w-screen 
         justify-center

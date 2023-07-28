@@ -1,0 +1,54 @@
+"use client";
+import { Order, OrderItem } from "@prisma/client";
+import Container from "../components/Container";
+import Heading from "../components/Heading";
+import { SafeUser, SafeOrder, SafeProduct } from "../types";
+import OrderHead from "../components/Orders/OrderHead";
+import OrderInfo from "../components/Orders/OrderInfo";
+
+export type OrderItemWithProduct = OrderItem & { product: SafeProduct };
+
+// Define the type for a single order with updated orderDate and items
+type OrderWithItems = SafeOrder & { items: OrderItemWithProduct[] };
+
+// Define the prop types for the OrdersClient component
+interface OrderProps {
+  orders: OrderWithItems[] | null;
+  currentUser?: SafeUser | null;
+}
+
+const OrdersClient: React.FC<OrderProps> = ({ orders, currentUser }) => {
+  console.log(orders);
+  return (
+    <Container>
+      <Heading
+        title={`${currentUser ? `${currentUser.name}'s` : "Your"} Orders!`}
+        subTitle="View your order history"
+      />
+      <div className=" flex flex-col  gap-4 ">
+        {orders &&
+          orders.map((order) => (
+            <div
+              key={order.id}
+              className="border-[1px] rounded-lg flex flex-col px-4 py-2 mt-4"
+            >
+              <div>
+                <OrderHead
+                  id={order.id}
+                  orderDate={order.orderDate}
+                  status={order.status}
+                />
+
+                <div className=" pt-2">
+                  {order.items &&
+                    order.items.map((item) => <OrderInfo item={item} />)}
+                </div>
+              </div>
+            </div>
+          ))}
+      </div>
+    </Container>
+  );
+};
+
+export default OrdersClient;

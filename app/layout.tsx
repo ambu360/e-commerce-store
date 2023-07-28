@@ -38,8 +38,10 @@ export default async function RootLayout({
         <SellModal categories_prisma = {categories_prisma}/>
         <CartModal currentUser = {currentUser} cart = {cart}/>
         <Navbar currentUser = {currentUser}/>   
+      <div className='pb-28 pt-28'>
 
         {children}
+      </div>
       </body>
     </html>
   )
