@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+
 interface OrderHeadProps {
   id: string;
   orderDate: string;
@@ -5,21 +7,35 @@ interface OrderHeadProps {
 }
 
 const OrderHead: React.FC<OrderHeadProps> = ({ id, orderDate, status }) => {
+  const date = new Date(orderDate);
+  const formattedDate = format(date, "yyyy-MM-dd");
   return (
-    <div className="grid grid-cols-4 gap-4 items-center border-b-[2px] border-amber-500 ">
-    <div className=" flex col-span-2 flex-row gap-2 py-2">
-      <span>order id:</span>
-      <span>{id}</span>
+    <div className="
+    grid 
+    grid-rows-3
+    lg:grid-cols-3
+    lg:grid-rows-none
+    gap-1
+    md:gap-4 
+    items-center 
+    border-b-[2px] 
+    py-2 
+    border-amber-500 ">
+      <div className=" flex  flex-row gap-2 py-2 items-center justify-start lg:justify-center">
+        <span>order id:</span>
+        <span className="font-medium text-lg text-neutral-800 ">{id}</span>
+      </div>
+      <div className=" flex flex-row gap-2 items-center justify-start lg:justify-center">
+        <span>Order Date:</span>
+        <span className="font-medium text-lg text-neutral-800 ">
+          {formattedDate}
+        </span>
+      </div>
+      <div className=" flex flex-row gap-2 justify-start lg:justify-center items-center">
+        <span>Status:</span>
+        <span className="font-medium text-lg text-neutral-800 ">{status}</span>
+      </div>
     </div>
-    <div className=" flex flex-row gap-2">
-      <span>order Date:</span>
-      <span>{orderDate}</span>
-    </div>
-    <div className=" flex flex-row gap-2">
-      <span>Status:</span>
-      <span>{status}</span>
-    </div>
-  </div>
   );
 };
 

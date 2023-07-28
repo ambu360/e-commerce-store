@@ -11,6 +11,9 @@ export default async function getOrders() {
       where: {
         userId: currentuser.id,
       },
+      orderBy:{
+        orderDate:'desc'
+      },
       include: {
         items: {
           include: {

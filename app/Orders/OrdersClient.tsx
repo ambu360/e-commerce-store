@@ -30,7 +30,17 @@ const OrdersClient: React.FC<OrderProps> = ({ orders, currentUser }) => {
           orders.map((order) => (
             <div
               key={order.id}
-              className="border-[1px] rounded-lg flex flex-col px-4 py-2 mt-4"
+              className="
+              border-[2px] 
+              bg-[#EDEBE8]
+              border-amber-500 
+              rounded-lg 
+              flex 
+              flex-col 
+              px-4 
+              py-2 
+              mt-4 
+              hover:shadow-xl"
             >
               <div>
                 <OrderHead
@@ -39,7 +49,7 @@ const OrdersClient: React.FC<OrderProps> = ({ orders, currentUser }) => {
                   status={order.status}
                 />
 
-                <div className=" pt-2">
+                <div className="  flex flex-col justify-center items-center pt-2 w-full">
                   {order.items &&
                     order.items.map((item) => <OrderInfo item={item} />)}
                 </div>
