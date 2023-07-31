@@ -70,7 +70,7 @@ const CartModal: React.FC<CartModalProps> = ({ currentUser, cart }) => {
     }catch(error:any){
       toast.error(error.message)
     }
-  },[])
+  },[cart,cartModel,router])
 
   //delete cart if order placed
 
@@ -81,7 +81,7 @@ const CartModal: React.FC<CartModalProps> = ({ currentUser, cart }) => {
     }).catch((error)=>{
       toast.error('something went wrong')
     })
-  },[])
+  },[router])
 
   //reroute to product
   const handleProductRoute = useCallback(

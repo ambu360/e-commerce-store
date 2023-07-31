@@ -18,7 +18,6 @@ interface OrderProps {
 }
 
 const OrdersClient: React.FC<OrderProps> = ({ orders, currentUser }) => {
-  console.log(orders);
   return (
     <Container>
       <Heading
