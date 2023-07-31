@@ -3,6 +3,7 @@ import { getFavorites } from "../actions/getFavorites";
 import ClientOnly from "../components/ClientOnly";
 import Container from "../components/Container";
 import EmptyState from "../components/EmptyState";
+import Heading from "../components/Heading";
 import ListingCard from "../components/products/ListingCard";
 
 const FavoritesPage = async () => {
@@ -31,9 +32,13 @@ const FavoritesPage = async () => {
   }
   return (
     <Container>
+      <Heading
+        title={`${currentUser ? `${currentUser.name}'s` : "Your"} favourites`}
+        subTitle="View you favourites here"
+      />
       <div
         className="
-                pt-28
+               
                 grid
                 grid-cols-1
                 sm:grid-cols-2

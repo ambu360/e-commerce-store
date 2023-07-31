@@ -5,9 +5,12 @@ import Container from "./components/Container";
 import EmptyState from "./components/EmptyState";
 import ListingCard from "./components/products/ListingCard";
 
-export default async function Home() {
-  const products = await getProducts();
+
+export default async function Home({searchParams}:any) {
+
+  const products = await getProducts(searchParams);
   const currentUser = await getCurrentUser();
+
   console.log(products);
   if (products.length === 0) {
     return (
