@@ -1,33 +1,35 @@
 import prisma from "@/app/libs/prismadb";
 
 export interface IProductParams {
-  userId?:String;
-  category?:string
+  userId?: String;
+  category?: string;
+  search?:string;
 }
 
-export default async function getProducts(params:IProductParams) {
+export default async function getProducts(params: IProductParams) {
   try {
-    const {userId,
-    category} = params
+    const { userId, category,search } = params;
 
-    let query:any = {}
-    
-    if(userId){
-      query.userId = userId
+    let query: any = {};
+    let products
+
+    if (userId) {
+      query.userId = userId;
     }
 
-    if(category){
-      query={
-       
-          category:{
-            name:category
-          }
-        
-      }
-      console.log(`thisis ${category}`)
+    if (category) {
+      query = {
+        category: {
+          name: category,
+        },
+      };
     }
-    const products = await prisma.product.findMany({
-      where:query,
+
+    if(search){
+      console.log(search)
+    }
+     products = await prisma.product.findMany({
+      where: query,
       orderBy: {
         createdAt: "desc",
       },

@@ -66,7 +66,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
       {isOpen && (
         <div
           ref={innerRef}
-          className="absolute mt-2 rounded-xl shadow-md w-[60vw] md:w-5/6 bg-white overflow-hidden right-0 top-12 text-sm"
+          className="absolute mt-2 z-10 rounded-xl shadow-md w-[60vw] md:w-5/6 bg-white overflow-hidden right-0 top-12 text-sm"
         >
           <div className="flex flex-col cursor-pointer">
             {currentUser ? (

@@ -58,15 +58,13 @@ const Categories = () =>{
     return (
         <Container border='border-t-2 bg-white border-t-amber-400'>
             <div className="
-                
+                backdrop-blur-lg
                 flex
                 flex-row
-                pt-4
+                py-2
                 items-center
                 justify-between
                 overflow-x-auto
-                
-               
             ">
                 {categories.map((item)=>(
                     <CategoryBox
@@ -78,7 +76,6 @@ const Categories = () =>{
                     />
                 ))}
             </div>
-
         </Container>
     )
 }

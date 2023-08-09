@@ -45,10 +45,10 @@ const ListingCard: React.FC<ListingCardProps> = ({ data, currentUser }) => {
             <HeartButton id={data.id} currentUser={currentUser} />
           </div>
         </div>
-        <div className="flex flex-row justify-between px-1 items-center">
+        <div className="flex flex-row justify-between px-1 pt-1">
           <div className="font-medium text-md">{data.name}</div>
 
-          <div className="font-light">${data.price}</div>
+          <div className="font-light flex items-start">${data.price}</div>
         </div>
       </div>
     </div>
