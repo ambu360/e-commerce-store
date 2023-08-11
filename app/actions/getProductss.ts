@@ -3,15 +3,15 @@ import prisma from "@/app/libs/prismadb";
 export interface IProductParams {
   userId?: String;
   category?: string;
-  search?:string;
+  search?: string;
 }
 
 export default async function getProducts(params: IProductParams) {
   try {
-    const { userId, category,search } = params;
+    const { userId, category, search } = params;
 
     let query: any = {};
-    let products
+    let products;
 
     if (userId) {
       query.userId = userId;
@@ -25,10 +25,10 @@ export default async function getProducts(params: IProductParams) {
       };
     }
 
-    if(search){
-      console.log(search)
+    if (search) {
+      console.log(search);
     }
-     products = await prisma.product.findMany({
+    products = await prisma.product.findMany({
       where: query,
       orderBy: {
         createdAt: "desc",

@@ -20,32 +20,32 @@ model User {
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
   favoriteId     String[]  @db.ObjectId
-  orderedId      String[]  @db.ObjectId
   cart           Cart?
   accounts       Account[]
   products       Product[]
-  orders Order[]
+  orders         Order[]
 }
 
 model Order {
-  id String    @id @default(auto()) @map("_id") @db.ObjectId
-  userId String @db.ObjectId
-  user User @relation(fields: [userId],references: [id])
-  orderDate DateTime @default(now())
-  status String
-  total Float
-  items OrderItem[]
+  id        String      @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String      @db.ObjectId
+  user      User        @relation(fields: [userId], references: [id])
+  orderDate DateTime    @default(now())
+  status    String
+  total     Float
+  items     OrderItem[]
 }
 
-model OrderItem{
-  id String    @id @default(auto()) @map("_id") @db.ObjectId
-  orderId String @db.ObjectId
-  order Order @relation(fields: [orderId],references: [id])
-  productId String @db.ObjectId
-  product Product @relation(fields: [productId],references: [id])
-  size String
-  quantity Int
+model OrderItem {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  orderId   String  @db.ObjectId
+  order     Order   @relation(fields: [orderId], references: [id])
+  productId String  @db.ObjectId
+  product   Product @relation(fields: [productId], references: [id])
+  size      String
+  quantity  Int
 }
+
 model Account {
   id                String  @id @default(auto()) @map("_id") @db.ObjectId
   userId            String  @db.ObjectId
@@ -65,9 +65,8 @@ model Account {
 }
 
 model Category {
-  id   String @id @default(auto()) @map("_id") @db.ObjectId
-  name String
-
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
   products Product[]
   image    String?
 
@@ -79,7 +78,7 @@ model CartItem {
   productId String  @db.ObjectId
   product   Product @relation(fields: [productId], references: [id])
   cartId    String  @db.ObjectId
-  cart      Cart?    @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  cart      Cart?   @relation(fields: [cartId], references: [id], onDelete: Cascade)
   size      String
   Quantity  Int
 }
@@ -92,24 +91,24 @@ model Cart {
 }
 
 model Product {
-  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  id               String      @id @default(auto()) @map("_id") @db.ObjectId
   name             String
   price            Float
   image            String
   brand            String
-  createdAt        DateTime @default(now())
+  createdAt        DateTime    @default(now())
   tags             String[]
   sizes            Size[]
-  categoryID       String   @db.ObjectId
-  category         Category @relation(fields: [categoryID], references: [id])
+  categoryID       String      @db.ObjectId
+  category         Category    @relation(fields: [categoryID], references: [id])
   currentInventory Int
-  userId           String   @db.ObjectId
+  userId           String      @db.ObjectId
   description      String
-  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  order OrderItem[]
-  cartItem CartItem[]
+  user             User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  order            OrderItem[]
+  cartItem         CartItem[]
 
-  @@map("products") // Set the collection name explicitly
+  @@map("products")
 }
 
 model Size {
@@ -118,4 +117,14 @@ model Size {
   inventory Int
   productID String  @db.ObjectId
   product   Product @relation(fields: [productID], references: [id])
+}
+
+//tags model for tracking tags for search
+
+model Tag {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  productIds String[]
+
+  @@map("tags")
 }
