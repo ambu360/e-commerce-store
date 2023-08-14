@@ -11,7 +11,7 @@ export default async function Home({searchParams}:any) {
   const products = await getProducts(searchParams);
   const currentUser = await getCurrentUser();
 
-  console.log(products);
+
   if (products.length === 0) {
     return (
       <ClientOnly>

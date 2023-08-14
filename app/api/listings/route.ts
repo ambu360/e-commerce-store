@@ -52,7 +52,7 @@ export async function POST(request: Request) {
   };
 
   const updatedTag = async (tag:string,id:string,tagId:string,tagList:string[]) =>{
-    tagList.push(tagId)
+    tagList.push(id)
     const updatedTag = await prisma.tag.update({
       where:{
         id:tagId

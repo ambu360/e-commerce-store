@@ -66,7 +66,7 @@ const SellModal: React.FC<SellModalProps> = ({ categories_prisma }) => {
   });
 
   const [isLoading, setIsloading] = useState(false);
-  const [sizeOptions,setSizeOption] = useState([
+  const [sizeOptions, setSizeOption] = useState([
     {
       size: "small",
       isSelected: false,
@@ -134,6 +134,24 @@ const SellModal: React.FC<SellModalProps> = ({ categories_prisma }) => {
       })
       .finally(() => {
         setIsloading(false);
+        setSizeOption([
+          {
+            size: "small",
+            isSelected: false,
+          },
+          {
+            size: "medium",
+            isSelected: false,
+          },
+          {
+            size: "large",
+            isSelected: false,
+          },
+          {
+            size: "xLarge",
+            isSelected: false,
+          },
+        ]);
       });
   };
 
@@ -214,7 +232,7 @@ const SellModal: React.FC<SellModalProps> = ({ categories_prisma }) => {
             required
           />
           <hr />
-         
+
           <TextArea
             id="description"
             label="Description of item"
@@ -222,30 +240,29 @@ const SellModal: React.FC<SellModalProps> = ({ categories_prisma }) => {
             errors={errors}
             required
           />
-          
         </div>
       </div>
     );
   }
 
-  if(step== STEPS.INFO_2){
+  if (step == STEPS.INFO_2) {
     bodyContent = (
       <div className=" flex flex-col gap-8">
         <Heading
           title="Informarion"
           subTitle="Tell us more about your product"
         />
-        <hr/>
-         <TagsInput
-            id="tags"
-            label="enter your tags"
-            setCustomValue={setCustomvalue}
-            required
-            tags={tags}
-          />
+        <hr />
+        <TagsInput
+          id="tags"
+          label="enter your tags"
+          setCustomValue={setCustomvalue}
+          required
+          tags={tags}
+        />
 
-          <hr />
-          {/*Refactor counter to sum inventory
+        <hr />
+        {/*Refactor counter to sum inventory
         <hr />
            <Counter
             label="Quantity"
@@ -254,18 +271,17 @@ const SellModal: React.FC<SellModalProps> = ({ categories_prisma }) => {
             onChange={(value) => setCustomvalue("quantity", value)}
           /> 
     <hr />*/}
-          <SizesInput
-            label="Sizes"
-            subTitle="What sizes do you offer and what are there inventory amounts"
-            sizeOptions={sizeOptions}
-            setSizeOption = {setSizeOption}
-            setCustomValue={setCustomvalue}
-            required
-            sizes={sizes}
-          />
-     
+        <SizesInput
+          label="Sizes"
+          subTitle="What sizes do you offer and what are there inventory amounts"
+          sizeOptions={sizeOptions}
+          setSizeOption={setSizeOption}
+          setCustomValue={setCustomvalue}
+          required
+          sizes={sizes}
+        />
       </div>
-    )
+    );
   }
 
   if (step === STEPS.IMAGES) {

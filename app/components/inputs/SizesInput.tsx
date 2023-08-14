@@ -74,7 +74,7 @@ const SizezInput: React.FC<SizeInputProps> = ({
           )
         );
       }
-      console.log(sizeInfo)
+   
     },
     [sizeInfo,sizeOptions,sizes]
   );

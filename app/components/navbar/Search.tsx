@@ -13,7 +13,6 @@ const Search = () => {
     (e: MouseEvent) => {
       e.stopPropagation();
       if (searchTerm.length !== 0) {
-
         const updatedQuery: any = {
           search: searchTerm,
         };
