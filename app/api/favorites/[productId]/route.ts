@@ -33,3 +33,36 @@ export async function POST(request: Request, { params }: { params: IParams }) {
 
   return NextResponse.json(user);
 }
+
+export async function DELETE(request:Request,{params}:{params:IParams}){
+
+  const currentUser = await getCurrentUser();
+
+  if(!currentUser){
+    return NextResponse.error()
+  }
+
+  const {productId} = params;
+  console.log(productId)
+  console.log(`this is delete`)
+  if(!productId || typeof productId !=='string'){
+    throw new Error("Invalid Id");
+  }
+
+  let favoriteId = [...(currentUser.favoriteId || [])];
+  favoriteId = favoriteId.filter((id)=> id !== productId)
+  console.log(favoriteId)
+
+  const user = await prisma.user.update({
+    where:{
+      id:currentUser.id,
+    },
+    data:{
+      favoriteId:favoriteId
+    }
+  })
+
+  return NextResponse.json(user)
+}
+
+

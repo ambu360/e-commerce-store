@@ -32,6 +32,7 @@ const useFavorite = ({ productId, currentUser }: IUseFavorite) => {
         let request;
 
         if (hasFavorited) {
+          console.log(hasFavorited)
           request = () => axios.delete(`/api/favorites/${productId}`);
         } else {
           request = () => axios.post(`/api/favorites/${productId}`);
