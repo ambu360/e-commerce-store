@@ -152,10 +152,12 @@ const CartModal: React.FC<CartModalProps> = ({ currentUser, cart }) => {
         0
       );
       setTotalPrice(total);
-    } else {
+    }
+     else {
       setTotalPrice(0);
     }
   }, [cart?.cartItems]);
+
 
   let bodyContent;
   if (!cart || cart.cartItems.length === 0) {
@@ -246,7 +248,7 @@ const CartModal: React.FC<CartModalProps> = ({ currentUser, cart }) => {
     <Modal
       disabled={isLoading}
       isOpen={cartDiv.isOpen}
-      actionLabel="Cart"
+      actionLabel="Checkout"
       onSubmit={() => {handleOrderSubmit()}}
       onClose={cartDiv.onClose}
       title={`${currentUser?.name}'s shopping cart`}

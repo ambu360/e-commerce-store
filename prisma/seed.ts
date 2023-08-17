@@ -2,7 +2,6 @@ const { PrismaClient } = require("@prisma/client");
 
 const prisma1 = new PrismaClient();
 
-
 async function seedData() {
   try {
     const categories = [
@@ -25,7 +24,5 @@ async function seedData() {
     await prisma1.$disconnect();
   }
 }
-
-
 
 seedData();

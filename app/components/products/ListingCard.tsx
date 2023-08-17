@@ -4,18 +4,26 @@ import { SafeProduct, SafeUser } from "@/app/types";
 import Image from "next/image";
 import HeartButton from "../HeartButton";
 import { useRouter } from "next/navigation";
+import Button from "../Button";
 
 interface ListingCardProps {
   data: SafeProduct;
   currentUser?: SafeUser | null;
+  onAction?:(id:string)=>void;
+  actionLabel?:string;
 }
-const ListingCard: React.FC<ListingCardProps> = ({ data, currentUser }) => {
+const ListingCard: React.FC<ListingCardProps> = ({ 
+  data,
+  currentUser,
+  onAction,
+  actionLabel, 
+  }) => {
   const router = useRouter();
   return (
     <div className="cols-span-1 cursor-pointer group">
       <div
         onClick={() => router.push(`/products/${data.id}`)}
-        className="flex flex-col gap-2 w-full"
+        className="flex flex-1 justify-end flex-col gap-4 w-full"
       >
         <div
           className="
@@ -48,8 +56,9 @@ const ListingCard: React.FC<ListingCardProps> = ({ data, currentUser }) => {
         <div className="flex flex-row justify-between px-1 pt-1">
           <div className="font-medium text-md">{data.name}</div>
 
-          <div className="font-light flex items-start">${data.price}</div>
-        </div>
+          <div className="font-light flex items-start pl-2">${data.price}</div>
+        </div >
+        
       </div>
     </div>
   );

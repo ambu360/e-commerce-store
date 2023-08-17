@@ -51,25 +51,30 @@ export async function POST(request: Request) {
     });
   };
 
-  const updatedTag = async (tag:string,id:string,tagId:string,tagList:string[]) =>{
-    tagList.push(id)
+  const updatedTag = async (
+    tag: string,
+    id: string,
+    tagId: string,
+    tagList: string[]
+  ) => {
+    tagList.push(id);
     const updatedTag = await prisma.tag.update({
-      where:{
-        id:tagId
+      where: {
+        id: tagId,
       },
-      data:{
-        productIds:tagList
-      }
-    })
-  }
+      data: {
+        productIds: tagList,
+      },
+    });
+  };
 
   if (product.tags.length !== 0) {
-    product.tags.forEach((item)=>{
-      const exists = tagsDb.find((tagObj)=> tagObj.name === item)
-      if(exists){
-        updatedTag(item,product.id,exists.id,exists.productIds)
-      }else{
-        createTag(item,product.id);
+    product.tags.forEach((item) => {
+      const exists = tagsDb.find((tagObj) => tagObj.name === item);
+      if (exists) {
+        updatedTag(item, product.id, exists.id, exists.productIds);
+      } else {
+        createTag(item, product.id);
       }
     });
   }
