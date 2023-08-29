@@ -24,10 +24,11 @@ const Search = () => {
           },
           { skipNull: true }
         );
+        setSearchTerm('')
         router.push(url);
       }
     },
-    [searchTerm, router]
+    [searchTerm, router,setSearchTerm]
   );
 
   return (

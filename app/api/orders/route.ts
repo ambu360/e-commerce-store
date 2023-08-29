@@ -26,6 +26,8 @@ export async function POST(request: Request) {
           createMany: {
             data: cart.cartItems.map((item) => ({
               productId: item.productId,
+              productName: item.product.name,        // Add this line
+              productImage: item.product.image, 
               size: item.size,
               quantity: item.Quantity,
             })),

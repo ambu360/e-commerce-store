@@ -35,7 +35,9 @@ const ProfileClient: React.FC<ProfileProps> = ({
             px-4
             py-3 "
       >
-        <span className="text-2xl font-medium text-neutral-700">Products sold by you </span>
+        <span className="text-2xl font-medium text-neutral-700">
+          Products sold by you{" "}
+        </span>
         <UserProducts userProducts={userProducts} currentUser={currentUser} />
       </div>
     </Container>

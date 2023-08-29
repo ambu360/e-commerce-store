@@ -17,18 +17,23 @@ const UserProducts: React.FC<UserProductsProps> = ({
   userProducts,
   currentUser,
 }) => {
-  const router = useRouter()
-  const handleDelete = useCallback((productId: string, creatorId: string) => {
-    if (creatorId === currentUser?.id) {
-      axios.delete(`/api/listings/${productId}`)
-      .catch((error)=>{
-        toast.error('error')
-      }).finally(()=>{
-        toast.success('deleted')
-        router.refresh()
-      })
-    }
-  }, [router,userProducts,currentUser]);
+  const router = useRouter();
+  const handleDelete = useCallback(
+    (productId: string, creatorId: string) => {
+      if (creatorId === currentUser?.id) {
+        axios
+          .delete(`/api/listings/${productId}`)
+          .catch((error) => {
+            toast.error("error");
+          })
+          .finally(() => {
+            toast.success("deleted");
+            router.refresh();
+          });
+      }
+    },
+    [router, userProducts, currentUser]
+  );
 
   return (
     <div
@@ -40,7 +45,7 @@ const UserProducts: React.FC<UserProductsProps> = ({
     lg:grid-cols-4
     xl:grid-cols-5
     2xl:grid-cols-6
-    gap-4 
+    gap-8 
     pt-3
     "
     >
@@ -55,7 +60,16 @@ const UserProducts: React.FC<UserProductsProps> = ({
           />
           <div className="flex flex-row gap-2">
             <Button label="update" onClick={() => {}} outline />
-            <Button label="Delete" onClick={() => handleDelete(item.id,item.userId)} icon={BsFillTrash3Fill} />
+            {item.isActive ? (
+              <Button
+                label="Delete"
+                onClick={() => handleDelete(item.id, item.userId)}
+                icon={BsFillTrash3Fill}
+              />
+            ) : (
+              <Button label="Activate" onClick={() => {}} />
+            )}
+            {/* <Button label="Delete" onClick={() => handleDelete(item.id,item.userId)} icon={BsFillTrash3Fill} /> */}
           </div>
         </div>
       ))}

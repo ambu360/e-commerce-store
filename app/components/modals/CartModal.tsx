@@ -6,7 +6,7 @@ import Heading from "../Heading";
 import { useCallback, useEffect, useState } from "react";
 import { SafeProduct, SafeUser } from "@/app/types";
 import { Cart, CartItem } from "@prisma/client";
-import { FaTrash, FaPlus, FaMinus } from "react-icons/Fa";
+import { FaTrash, FaPlus, FaMinus } from "react-icons/fa";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import axios from "axios";

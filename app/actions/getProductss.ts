@@ -10,7 +10,7 @@ export default async function getProducts(params: IProductParams) {
   try {
     const { userId, category, search } = params;
 
-    let query: any = {};
+    let query: any = {isActive:true};
     let products;
 
     if (userId) {
@@ -29,6 +29,7 @@ export default async function getProducts(params: IProductParams) {
       const tag = await prisma.tag.findFirst({
         where: {
           name: search,
+          
         },
         select: {
           productIds: true, // This will only select the productIds field

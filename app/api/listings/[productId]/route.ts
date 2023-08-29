@@ -19,9 +19,12 @@ export async function DELETE(request: Request,{params}:{params:Iparams}) {
     return NextResponse.error()
   }
 
-  const product = await prisma.product.delete({
+  const product = await prisma.product.update({
     where:{
         id:productId
+    },
+    data:{
+      isActive:false
     }
   })
 
